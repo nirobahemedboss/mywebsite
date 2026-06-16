@@ -3,13 +3,12 @@ from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 app.secret_key = "super_secret_key_for_md_workspace"
 
-# আপনার নাম্বার ও সোশ্যাল লিংকসহ নতুন ডাটাবেজ
+# রকেট সম্পূর্ণ ডিলিট করা নতুন ডাটাবেজ
 site_data = {
     "title": "Md's Diamond & Premium App Store",
     "notice": "১০০% ট্রাস্টেড এবং সবচেয়ে কম দামে প্রিমিয়াম অ্যাপ ও ডায়মন্ড টপ-আপ কিনুন!",
     "bkash": "01961888782",
     "nagad": "01961888782",
-    "rocket": "01961888782",
     "fb_link": "https://www.facebook.com/nerobkhan82",
     "yt_link": "https://youtube.com/@nahidgaming8",
     "telegram_link": "https://www.instagram.com/nahid_ahemed_",
@@ -58,7 +57,7 @@ def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        if username == 'admin' and password == 'admin123':
+        if username == 'admin' and password == 'nirob@945nt':
             session['logged_in'] = True
             return redirect(url_for('dashboard'))
         else:
@@ -89,7 +88,6 @@ def update_data():
     site_data['notice'] = request.form.get('notice')
     site_data['bkash'] = request.form.get('bkash')
     site_data['nagad'] = request.form.get('nagad')
-    site_data['rocket'] = request.form.get('rocket')
     site_data['fb_link'] = request.form.get('fb_link')
     site_data['yt_link'] = request.form.get('yt_link')
     site_data['telegram_link'] = request.form.get('telegram_link')
