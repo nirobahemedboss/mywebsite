@@ -1,79 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ data.title }}</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: #ffffff; margin: 0; padding: 0; text-align: center; }
-        header { background: linear-gradient(135deg, #1e1b4b, #311042); padding: 40px 20px; border-bottom: 3px solid #7c3aed; }
-        header h1 { margin: 0; font-size: 2.3rem; color: #00f2fe; }
-        .notice-bar { background: #7c3aed; color: white; padding: 10px; font-weight: bold; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .card { background-color: #1e293b; border-radius: 15px; padding: 25px; width: 300px; border: 1px solid #334155; text-align: left; box-sizing: border-box; }
-        .price { font-size: 1.6rem; font-weight: bold; margin: 10px 0; color: #4ade80; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .payment-info { background: #0f172a; padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; border: 1px dashed #475569; }
-        .form-group { margin-bottom: 12px; }
-        label { display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 4px; }
-        input, select { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box; }
-        .btn { display: block; width: 100%; background: linear-gradient(135deg, #00f2fe, #4facfe); color: #0f172a; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
-        .btn-premium { background: linear-gradient(135deg, #f953c6, #b91d73); color: white; }
-        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .social-btn { padding: 10px 20px; border-radius: 20px; color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        .fb { background: #2563eb; } .yt { background: #dc2626; } .insta { background: #db2777; } .mail { background: #0d9488; }
-        footer { margin-top: 50px; padding: 30px; background: #111827; color: #64748b; font-size: 0.9rem; }
+        body { font-family: 'Arial', sans-serif; background-color: #f4f6f9; margin: 0; padding: 0; color: #333; }
+        .container { max-width: 600px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #4a0e4e; margin-bottom: 5px; }
+        .notice { background: #fff3cd; color: #856404; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 20px; border: 1px solid #ffeeba; }
+        .payment-info { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #d946ef; }
+        .payment-info p { margin: 5px 0; font-size: 16px; }
+        .product-card { border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
+        .product-card h3 { margin: 0 0 10px 0; color: #1e293b; }
+        .price { color: #e11d48; font-weight: bold; font-size: 18px; }
+        .btn { display: block; width: 100%; background: #d946ef; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s; text-align: center; text-decoration: none; box-sizing: border-box; }
+        .btn:hover { background: #c026d3; }
+        .social-links { text-align: center; margin-top: 20px; }
+        .social-links a { margin: 0 10px; color: #475569; font-weight: bold; text-decoration: none; }
+        .social-links a:hover { color: #d946ef; }
     </style>
 </head>
 <body>
-    <header><h1>{{ data.title }} 🚀</h1></header>
-    <div class="notice-bar">📢 নোটিশ: {{ data.notice }}</div>
-    <div class="container">
-        <!-- ডায়মন্ড -->
-        <div class="card">
-            <h2 style="color: #00f2fe; text-align: center;">💎 {{ data.products.diamond.name }}</h2>
-            <p style="text-align: center; color: #94a3b8;">{{ data.products.diamond.note }}</p>
-            <div class="price">৳ {{ data.products.diamond.price }}</div>
-            <div class="payment-info">
-                <p style="color: #4ade80; font-weight: bold; text-align: center; margin: 0 0 5px 0;">👇 সেন্ড মানি করুন (পার্সোনাল)</p>
-                <p style="margin:4px 0;"><b>বিকাশ:</b> {{ data.bkash }}</p>
-                <p style="margin:4px 0;"><b>নগদ:</b> {{ data.nagad }}</p>
-                <p style="margin:4px 0;"><b>রকেট:</b> {{ data.rocket }}</p>
-            </div>
-            <form action="/order" method="POST">
-                <input type="hidden" name="product_name" value="{{ data.products.diamond.name }}">
-                <div class="form-group"><label>গেম UID:</label><input type="text" name="game_uid" required></div>
-                <div class="form-group"><label>মেথড:</label><select name="payment_method"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select></div>
-                <div class="form-group"><label>আপনার নাম্বার:</label><input type="text" name="sender_number" required></div>
-                <div class="form-group"><label>ট্রানজেকশন ID:</label><input type="text" name="txid" required></div>
-                <button type="submit" class="btn">অর্ডার করুন ⚡</button>
-            </form>
-        </div>
-        <!-- অ্যাপ -->
-        <div class="card">
-            <h2 style="color: #d946ef; text-align: center;">🚀 {{ data.products.apps.name }}</h2>
-            <p style="text-align: center; color: #94a3b8;">{{ data.products.apps.note }}</p>
-            <div class="price">৳ {{ data.products.apps.price }}</div>
-            <div class="payment-info">
-                <p style="color: #4ade80; font-weight: bold; text-align: center; margin: 0 0 5px 0;">👇 সেন্ড মানি করুন (পার্সোনাল)</p>
-                <p style="margin:4px 0;"><b>বিকাশ:</b> {{ data.bkash }}</p>
-                <p style="margin:4px 0;"><b>নগদ:</b> {{ data.nagad }}</p>
-            </div>
-            <form action="/order" method="POST">
-                <input type="hidden" name="product_name" value="{{ data.products.apps.name }}">
-                <div class="form-group"><label>আপনার ইমেইল:</label><input type="email" name="game_uid" required></div>
-                <div class="form-group"><label>মেথড:</label><select name="payment_method"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select></div>
-                <div class="form-group"><label>আপনার নাম্বার:</label><input type="text" name="sender_number" required></div>
-                <div class="form-group"><label>ট্রানজেকশন ID:</label><input type="text" name="txid" required></div>
-                <button type="submit" class="btn btn-premium">অর্ডার করুন ⚡</button>
-            </form>
-        </div>
+
+<div class="container">
+    <h1>{{ data.title }}</h1>
+    <div class="notice">{{ data.notice }}</div>
+
+    <div class="payment-info">
+        <h3 style="margin-top: 0; color: #1e293b;">📌 আমাদের পেমেন্ট নাম্বারসমূহ (Personal):</h3>
+        <p><strong>বিকাশ (bKash):</strong> <span style="color: #d946ef; font-weight: bold;">{{ data.bkash }}</span></p>
+        <p><strong>নগদ (Nagad):</strong> <span style="color: #ff6a00; font-weight: bold;">{{ data.nagad }}</span></p>
     </div>
+
+    <h2>🛍️ আমাদের প্রোডাক্টসমূহ:</h2>
+    <div class="product-card">
+        <h3>💎 {{ data.products.diamond.name }}</h3>
+        <p>মূল্য: <span class="price">{{ data.products.diamond.price }} টাকা</span></p>
+        <p style="color: #64748b; font-size: 14px;">নোট: {{ data.products.diamond.note }}</p>
+    </div>
+    <div class="product-card">
+        <h3>📱 {{ data.products.apps.name }}</h3>
+        <p>মূল্য: <span class="price">{{ data.products.apps.price }} টাকা</span></p>
+        <p style="color: #64748b; font-size: 14px;">নোট: {{ data.products.apps.note }}</p>
+    </div>
+
+    <h2>📝 অর্ডার ফর্ম:</h2>
+    <form action="/order" method="post">
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">প্রোডাক্ট সিলেক্ট করুন:</label>
+        <select name="product_name" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd;">
+            <option value="{{ data.products.diamond.name }}">{{ data.products.diamond.name }}</option>
+            <option value="{{ data.products.apps.name }}">{{ data.products.apps.name }}</option>
+        </select>
+
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">গেম UID (শুধু ডায়মন্ডের জন্য):</label>
+        <input type="text" name="game_uid" placeholder="যেমন: 123456789" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
+
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">পেমেন্ট মেথড:</label>
+        <select name="payment_method" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd;">
+            <option value="bKash">bKash</option>
+            <option value="Nagad">Nagad</option>
+        </select>
+
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">যে নাম্বার থেকে টাকা পাঠিয়েছেন:</label>
+        <input type="text" name="sender_number" placeholder="01XXXXXXXXX" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
+
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">টাকা পাঠানোর TxID:</label>
+        <input type="text" name="txid" placeholder="যেমন: TRX123456" required style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
+
+        <button type="submit" class="btn">অর্ডার সাবমিট করুন</button>
+    </form>
+
     <div class="social-links">
-        <a href="{{ data.fb_link }}" target="_blank" class="social-btn fb">Facebook</a>
-        <a href="{{ data.yt_link }}" target="_blank" class="social-btn yt">YouTube</a>
-        <a href="{{ data.telegram_link }}" target="_blank" class="social-btn insta">Instagram</a>
-        <a href="mailto:tgxnahidgamer0@gmail.com" class="social-btn mail">Email</a>
+        <h3>📞 আমাদের সাথে যোগাযোগ করুন:</h3>
+        <a href="{{ data.fb_link }}" target="_blank">Facebook</a>
+        <a href="{{ data.yt_link }}" target="_blank">YouTube</a>
+        <a href="{{ data.telegram_link }}" target="_blank">Instagram</a>
     </div>
-    <footer><p>&copy; 2026 Md's Workspace | <a href="/admin" style="color:#64748b;">Admin</a></p></footer>
+</div>
+
 </body>
 </html>
