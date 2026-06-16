@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond & Premium App Store</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            padding: 40px 20px;
+            border-bottom: 3px solid #d946ef;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #00f2fe;
+            text-shadow: 0 0 10px rgba(0,242,254,0.5);
+        }
+        header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .card {
+            background-color: #1e293b;
+            border-radius: 15px;
+            padding: 30px;
+            width: 280px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #00f2fe;
+        }
+        .diamond-card { border-color: #00f2fe; }
+        .premium-card { border-color: #d946ef; }
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+        .diamond-card h2 { color: #00f2fe; }
+        .premium-card h2 { color: #d946ef; }
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #e2e8f0;
+        }
+        .features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin: 20px 0;
+            color: #cbd5e1;
+        }
+        .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #334155;
+        }
+        .features li::before {
+            content: "✓ ";
+            color: #4ade80;
+        }
+        .btn {
+            display: block;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #0f172a;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+        .btn-premium {
+            background: linear-gradient(135deg, #f953c6, #b91d73);
+            color: white;
+        }
+        .btn:hover { opacity: 0.9; }
+        footer {
+            margin-top: 5px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>💎 Md's Diamond & Premium App Store 🚀</h1>
+        <p>১০০% ট্রাস্টেড এবং সবচেয়ে কম দামে প্রিমিয়াম অ্যাপ ও ডায়মন্ড টপ-আপ কিনুন!</p>
+    </header>
+
+    <div class="container">
+        <!-- Card 1 -->
+        <div class="card diamond-card">
+            <h2>Free Fire Diamond</h2>
+            <p>ইন-গেম অথবা ইউআইডি টপ-আপ</p>
+            <div class="price">৳ ৮০ থেকে শুরু</div>
+            <ul class="features">
+                <li>সুপার ফাস্ট ডেলিভারি (৫-১০ মিনিট)</li>
+                <li>১০০% সেফ ও লিগ্যাল ডায়মন্ড</li>
+                <li>২৪/৭ কাস্টমার সাপোর্ট পাবেন</li>
+            </ul>
+            <a href="https://wa.me/8801961888782" target="_blank" class="btn">এখনই কিনুন</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card premium-card">
+            <h2>Premium Apps</h2>
+            <p>Netflix, Spotify, Canva, etc.</p>
+            <div class="price">৳ ৫০ থেকে শুরু</div>
+            <ul class="features">
+                <li>ফুল মেয়াদ বা ওয়ারেন্টিসহ অ্যাকাউন্ট</li>
+                <li>নিজের পার্সোনাল ইমেইলে প্রিমিয়াম</li>
+                <li>কোনো রকম লগইন ঝামেলা নেই</li>
+            </ul>
+            <a href="https://wa.me/8801961888782" target="_blank" class="btn btn-premium">এখনই কিনুন</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Md's Workspace. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
