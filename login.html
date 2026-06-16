@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { background-color: #0f172a; color: white; font-family: sans-serif; padding: 40px; }
+        .box { background: #1e293b; padding: 20px; border-radius: 10px; max-width: 500px; margin: 20px auto; border: 1px solid #d946ef; }
+        label { display: block; margin-top: 10px; color: #94a3b8; font-size: 0.9rem; }
+        input { width: 95%; padding: 10px; margin: 5px 0 15px 0; border-radius: 5px; border: 1px solid #334155; background-color: #0f172a; color: white; }
+        button { background: linear-gradient(135deg, #d946ef, #b91d73); color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem; }
+        a { color: #00f2fe; text-decoration: none; display: block; text-align: center; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">⚙️ Admin Control Panel</h1>
+    <div class="box">
+        <form method="POST">
+            <h3>১. ফ্রি ফায়ার ডায়মন্ড আপডেট</h3>
+            <label>দাম (টাকা):</label>
+            <input type="text" name="diamond_price" value="{{ products.diamond.price }}">
+            <label>ডিসক্রিপশন:</label>
+            <input type="text" name="diamond_note" value="{{ products.diamond.note }}">
+            
+            <hr style="border-color: #334155; margin: 20px 0;">
+            
+            <h3>২. প্রিমিয়াম অ্যাপ আপডেট</h3>
+            <label>দাম (টাকা):</label>
+            <input type="text" name="apps_price" value="{{ products.apps.price }}">
+            <label>ডিসক্রিপশন:</label>
+            <input type="text" name="apps_note" value="{{ products.apps.note }}">
+            
+            <button type="submit">সব তথ্য আপডেট করুন</button>
+        </form>
+        <a href="/logout">লগআউট করুন</a>
+    </div>
+</body>
+</html>
