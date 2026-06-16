@@ -2,37 +2,155 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; padding: 40px; }
-        .box { background: #1e293b; padding: 20px; border-radius: 10px; max-width: 500px; margin: 20px auto; border: 1px solid #d946ef; }
-        label { display: block; margin-top: 10px; color: #94a3b8; font-size: 0.9rem; }
-        input { width: 95%; padding: 10px; margin: 5px 0 15px 0; border-radius: 5px; border: 1px solid #334155; background-color: #0f172a; color: white; }
-        button { background: linear-gradient(135deg, #d946ef, #b91d73); color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1rem; }
-        a { color: #00f2fe; text-decoration: none; display: block; text-align: center; margin-top: 20px; font-weight: bold; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; }
+        .box { background: #1e293b; padding: 25px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 4px 10px rgba(0,0,0,0.3); flex: 1; min-width: 320px; }
+        .full-width { flex: 1 1 100%; }
+        h1, h2, h3 { color: #d946ef; margin-top: 0; }
+        label { display: block; margin-top: 10px; font-weight: bold; color: #94a3b8; }
+        input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box; }
+        .btn { background: linear-gradient(135deg, #d946ef, #9333ea); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1rem; }
+        .btn:hover { opacity: 0.9; }
+        .logout-btn { display: inline-block; background: #ef4444; color: white; padding: 8px 15px; text-decoration: none; border-radius: 6px; float: right; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #1e293b; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+        th { background-color: #311042; color: #00f2fe; }
+        .status-pending { color: #f59e0b; font-weight: bold; }
+        .status-completed { color: #10b981; font-weight: bold; }
+        .action-btn { background: #10b981; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">⚙️ Admin Control Panel</h1>
-    <div class="box">
-        <form method="POST">
-            <h3>১. ফ্রি ফায়ার ডায়মন্ড আপডেট</h3>
-            <label>দাম (টাকা):</label>
-            <input type="text" name="diamond_price" value="{{ products.diamond.price }}">
-            <label>ডিসক্রিপশন:</label>
-            <input type="text" name="diamond_note" value="{{ products.diamond.note }}">
-            
-            <hr style="border-color: #334155; margin: 20px 0;">
-            
-            <h3>২. প্রিমিয়াম অ্যাপ আপডেট</h3>
-            <label>দাম (টাকা):</label>
-            <input type="text" name="apps_price" value="{{ products.apps.price }}">
-            <label>ডিসক্রipশন:</label>
-            <input type="text" name="apps_note" value="{{ products.apps.note }}">
-            
-            <button type="submit">সব তথ্য আপডেট করুন</button>
-        </form>
-        <a href="/logout">লগআউট করুন</a>
+
+    <div style="max-width: 1100px; margin: 0 auto 20px auto; overflow: hidden;">
+        <a href="/admin/logout" class="logout-btn">লগআউট করুন</a>
+        <h1 style="margin: 0; color: #00f2fe;">⚙️ Admin Control Panel</h1>
+        <p style="color: #94a3b8; margin: 5px 0 0 0;">এখান থেকে ওয়েবসাইটের সবকিছু এক ক্লিকে পরিবর্তন করুন</p>
     </div>
+
+    <form action="/admin/update" method="POST" class="container">
+        
+        <!-- ১. সাইটের জেনারেল সেটিংস ও সোশ্যাল লিংক -->
+        <div class="box">
+            <h2>১. সাধারণ সেটিংস ও সোশ্যাল লিংক</h2>
+            
+            <label>ওয়েবসাইটের নাম (Title):</label>
+            <input type="text" name="title" value="{{ data.title }}" required>
+            
+            <label>ওয়েবসাইটের নোটিশ (Notice):</label>
+            <textarea name="notice" rows="2" required>{{ data.notice }}</textarea>
+            
+            <label style="color: #3b82f6;">🌐 ফেসবুক পেজ লিংক (FB Link):</label>
+            <input type="url" name="fb_link" value="{{ data.get('fb_link', 'https://facebook.com') }}">
+            
+            <label style="color: #ef4444;">🔴 ইউটিউব চ্যানেল লিংক (YT Link):</label>
+            <input type="url" name="yt_link" value="{{ data.get('yt_link', 'https://youtube.com') }}">
+            
+            <label style="color: #06b6d4;">✈️ টেলিগ্রাম চ্যানেল লিংক (Telegram Link):</label>
+            <input type="url" name="telegram_link" value="{{ data.get('telegram_link', 'https://t.me') }}">
+        </div>
+
+        <!-- ২. পেমেন্ট নাম্বার সেটিংস -->
+        <div class="box">
+            <h2>২. পেমেন্ট নাম্বার সেটআপ</h2>
+            
+            <label>বিকাশ পার্সোনাল নাম্বার:</label>
+            <input type="text" name="bkash" value="{{ data.bkash }}" required>
+            
+            <label>নগদ পার্সোনাল নাম্বার:</label>
+            <input type="text" name="nagad" value="{{ data.nagad }}" required>
+            
+            <label>রকেট পার্সোনাল নাম্বার:</label>
+            <input type="text" name="rocket" value="{{ data.rocket }}" required>
+        </div>
+
+        <!-- ৩. প্রোডাক্ট কাস্টমাইজেশন -->
+        <div class="box full-width" style="display: flex; flex-wrap: wrap; gap: 20px; padding: 0; background: transparent; border: none; box-shadow: none;">
+            <!-- ডায়মন্ড -->
+            <div class="box" style="margin:0;">
+                <h3 style="color: #00f2fe;">💎 ডায়মন্ড প্যাকেজ আপডেট</h3>
+                <label>প্যাকেজের নাম:</label>
+                <input type="text" name="diamond_name" value="{{ data.products.diamond.name }}" required>
+                <label>দাম (টাকা):</label>
+                <input type="text" name="diamond_price" value="{{ data.products.diamond.price }}" required>
+                <label>ডেসক্রিপশন:</label>
+                <input type="text" name="diamond_note" value="{{ data.products.diamond.note }}" required>
+            </div>
+            
+            <!-- প্রিমিয়াম অ্যাপ -->
+            <div class="box" style="margin:0;">
+                <h3 style="color: #e11d48;">🚀 প্রিমিয়াম অ্যাপ আপডেট</h3>
+                <label>অ্যাপের নাম:</label>
+                <input type="text" name="apps_name" value="{{ data.products.apps.name }}" required>
+                <label>দাম (টাকা):</label>
+                <input type="text" name="apps_price" value="{{ data.products.apps.price }}" required>
+                <label>ডেসক্রিপশন:</label>
+                <input type="text" name="apps_note" value="{{ data.products.apps.note }}" required>
+            </div>
+        </div>
+
+        <div class="full-width">
+            <button type="submit" class="btn">সব তথ্য আপডেট করুন ✨</button>
+        </div>
+    </form>
+
+    <!-- ৪. কাস্টমারদের লাইভ অর্ডার টেবিল -->
+    <div class="container" style="margin-top: 30px;">
+        <div class="box full-width">
+            <h2 style="color: #4ade80;">📥 কাস্টমারদের অর্ডার লিস্ট (Live Orders)</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>অর্ডার ID</th>
+                            <th>প্রোডাক্টের নাম</th>
+                            <th>গেম UID / ইমেইল</th>
+                            <th>পেমেন্ট মেথড</th>
+                            <th>যাঁর নাম্বার থেকে টাকা এসেছে</th>
+                            <th>ট্রানজেকশন ID (TxID)</th>
+                            <th>অবস্থা (Status)</th>
+                            <th>অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if orders %}
+                            {% for order in orders %}
+                            <tr>
+                                <td>#{{ order.id }}</td>
+                                <td style="font-weight: bold;">{{ order.product }}</td>
+                                <td style="color: #00f2fe;">{{ order.uid }}</td>
+                                <td><span style="background: #334155; padding: 3px 8px; border-radius: 4px;">{{ order.method }}</span></td>
+                                <td>{{ order.sender }}</td>
+                                <td style="color: #cbd5e1; font-family: monospace;">{{ order.txid }}</td>
+                                <td>
+                                    {% if order.status == 'Pending' %}
+                                        <span class="status-pending">⏳ Pending</span>
+                                    {% else %}
+                                        <span class="status-completed">✅ Completed</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.status == 'Pending' %}
+                                        <a href="/admin/order/complete/{{ order.id }}" class="action-btn">Done করুন</a>
+                                    {% else %}
+                                        <span style="color: #64748b;">No Action</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="8" style="text-align: center; color: #64748b; padding: 30px;">এখনও কোনো অর্ডার আসেনি ভাই!</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
