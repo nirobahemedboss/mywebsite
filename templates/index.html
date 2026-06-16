@@ -3,143 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond & Premium App Store</title>
+    <title>{{ data.title }}</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        header {
-            background: linear-gradient(135deg, #1e1b4b, #311042);
-            padding: 40px 20px;
-            border-bottom: 3px solid #d946ef;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #00f2fe;
-            text-shadow: 0 0 10px rgba(0,242,254,0.5);
-        }
-        header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-        .card {
-            background-color: #1e293b;
-            border-radius: 15px;
-            padding: 30px;
-            width: 280px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #00f2fe;
-        }
-        .diamond-card { border-color: #00f2fe; }
-        .premium-card { border-color: #d946ef; }
-        .card h2 {
-            margin-top: 0;
-            font-size: 1.8rem;
-        }
-        .diamond-card h2 { color: #00f2fe; }
-        .premium-card h2 { color: #d946ef; }
-        .price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #e2e8f0;
-        }
-        .features {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            margin: 20px 0;
-            color: #cbd5e1;
-        }
-        .features li {
-            padding: 8px 0;
-            border-bottom: 1px solid #334155;
-        }
-        .features li::before {
-            content: "✓ ";
-            color: #4ade80;
-        }
-        .btn {
-            display: block;
-            background: linear-gradient(135deg, #00f2fe, #4facfe);
-            color: #0f172a;
-            padding: 12px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: opacity 0.2s;
-        }
-        .btn-premium {
-            background: linear-gradient(135deg, #f953c6, #b91d73);
-            color: white;
-        }
-        .btn:hover { opacity: 0.9; }
-        footer {
-            margin-top: 5px;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: #ffffff; margin: 0; padding: 0; text-align: center; }
+        header { background: linear-gradient(135deg, #1e1b4b, #311042); padding: 40px 20px; border-bottom: 3px solid #7c3aed; }
+        header h1 { margin: 0; font-size: 2.3rem; color: #00f2fe; }
+        .notice-bar { background: #7c3aed; color: white; padding: 10px; font-weight: bold; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .card { background-color: #1e293b; border-radius: 15px; padding: 25px; width: 300px; border: 1px solid #334155; text-align: left; box-sizing: border-box; }
+        .price { font-size: 1.6rem; font-weight: bold; margin: 10px 0; color: #4ade80; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .payment-info { background: #0f172a; padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; border: 1px dashed #475569; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box; }
+        .btn { display: block; width: 100%; background: linear-gradient(135deg, #00f2fe, #4facfe); color: #0f172a; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
+        .btn-premium { background: linear-gradient(135deg, #f953c6, #b91d73); color: white; }
+        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .social-btn { padding: 10px 20px; border-radius: 20px; color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .fb { background: #2563eb; } .yt { background: #dc2626; } .insta { background: #db2777; } .mail { background: #0d9488; }
+        footer { margin-top: 50px; padding: 30px; background: #111827; color: #64748b; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>💎 Md's Diamond & Premium App Store 🚀</h1>
-        <p>১০০% ট্রাস্টেড এবং সবচেয়ে কম দামে প্রিমিয়াম অ্যাপ ও ডায়মন্ড টপ-আপ কিনুন!</p>
-    </header>
-
+    <header><h1>{{ data.title }} 🚀</h1></header>
+    <div class="notice-bar">📢 নোটিশ: {{ data.notice }}</div>
     <div class="container">
-        <!-- Card 1 -->
-        <div class="card diamond-card">
-            <h2>Free Fire Diamond</h2>
-            <p>ইন-গেম অথবা ইউআইডি টপ-আপ</p>
-            <div class="price">৳ ৮০ থেকে শুরু</div>
-            <ul class="features">
-                <li>সুপার ফাস্ট ডেলিভারি (৫-১০ মিনিট)</li>
-                <li>১০০% সেফ ও লিগ্যাল ডায়মন্ড</li>
-                <li>২৪/৭ কাস্টমার সাপোর্ট পাবেন</li>
-            </ul>
-            <a href="https://wa.me/8801961888782" target="_blank" class="btn">এখনই কিনুন</a>
+        <!-- ডায়মন্ড -->
+        <div class="card">
+            <h2 style="color: #00f2fe; text-align: center;">💎 {{ data.products.diamond.name }}</h2>
+            <p style="text-align: center; color: #94a3b8;">{{ data.products.diamond.note }}</p>
+            <div class="price">৳ {{ data.products.diamond.price }}</div>
+            <div class="payment-info">
+                <p style="color: #4ade80; font-weight: bold; text-align: center; margin: 0 0 5px 0;">👇 সেন্ড মানি করুন (পার্সোনাল)</p>
+                <p style="margin:4px 0;"><b>বিকাশ:</b> {{ data.bkash }}</p>
+                <p style="margin:4px 0;"><b>নগদ:</b> {{ data.nagad }}</p>
+                <p style="margin:4px 0;"><b>রকেট:</b> {{ data.rocket }}</p>
+            </div>
+            <form action="/order" method="POST">
+                <input type="hidden" name="product_name" value="{{ data.products.diamond.name }}">
+                <div class="form-group"><label>গেম UID:</label><input type="text" name="game_uid" required></div>
+                <div class="form-group"><label>মেথড:</label><select name="payment_method"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select></div>
+                <div class="form-group"><label>আপনার নাম্বার:</label><input type="text" name="sender_number" required></div>
+                <div class="form-group"><label>ট্রানজেকশন ID:</label><input type="text" name="txid" required></div>
+                <button type="submit" class="btn">অর্ডার করুন ⚡</button>
+            </form>
         </div>
-
-        <!-- Card 2 -->
-        <div class="card premium-card">
-            <h2>Premium Apps</h2>
-            <p>Netflix, Spotify, Canva, etc.</p>
-            <div class="price">৳ ৫০ থেকে শুরু</div>
-            <ul class="features">
-                <li>ফুল মেয়াদ বা ওয়ারেন্টিসহ অ্যাকাউন্ট</li>
-                <li>নিজের পার্সোনাল ইমেইলে প্রিমিয়াম</li>
-                <li>কোনো রকম লগইন ঝামেলা নেই</li>
-            </ul>
-            <a href="https://wa.me/8801961888782" target="_blank" class="btn btn-premium">এখনই কিনুন</a>
+        <!-- অ্যাপ -->
+        <div class="card">
+            <h2 style="color: #d946ef; text-align: center;">🚀 {{ data.products.apps.name }}</h2>
+            <p style="text-align: center; color: #94a3b8;">{{ data.products.apps.note }}</p>
+            <div class="price">৳ {{ data.products.apps.price }}</div>
+            <div class="payment-info">
+                <p style="color: #4ade80; font-weight: bold; text-align: center; margin: 0 0 5px 0;">👇 সেন্ড মানি করুন (পার্সোনাল)</p>
+                <p style="margin:4px 0;"><b>বিকাশ:</b> {{ data.bkash }}</p>
+                <p style="margin:4px 0;"><b>নগদ:</b> {{ data.nagad }}</p>
+            </div>
+            <form action="/order" method="POST">
+                <input type="hidden" name="product_name" value="{{ data.products.apps.name }}">
+                <div class="form-group"><label>আপনার ইমেইল:</label><input type="email" name="game_uid" required></div>
+                <div class="form-group"><label>মেথড:</label><select name="payment_method"><option value="bKash">bKash</option><option value="Nagad">Nagad</option></select></div>
+                <div class="form-group"><label>আপনার নাম্বার:</label><input type="text" name="sender_number" required></div>
+                <div class="form-group"><label>ট্রানজেকশন ID:</label><input type="text" name="txid" required></div>
+                <button type="submit" class="btn btn-premium">অর্ডার করুন ⚡</button>
+            </form>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2026 Md's Workspace. All Rights Reserved.</p>
-    </footer>
-
+    <div class="social-links">
+        <a href="{{ data.fb_link }}" target="_blank" class="social-btn fb">Facebook</a>
+        <a href="{{ data.yt_link }}" target="_blank" class="social-btn yt">YouTube</a>
+        <a href="{{ data.telegram_link }}" target="_blank" class="social-btn insta">Instagram</a>
+        <a href="mailto:tgxnahidgamer0@gmail.com" class="social-btn mail">Email</a>
+    </div>
+    <footer><p>&copy; 2026 Md's Workspace | <a href="/admin" style="color:#64748b;">Admin</a></p></footer>
 </body>
 </html>
