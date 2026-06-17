@@ -2,8 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAHID TOPUP</title>
+    <title>NAHID TOPUP PANEL</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,24 +12,29 @@
             <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo-img">
             <span>NAHID TOPUP</span>
         </div>
-        <div class="nav-links">
-            <a href="https://www.facebook.com/nerobkhan82" target="_blank">Facebook</a>
+        <div class="social-links">
+            <a href="https://www.facebook.com/nerobkhan82" target="_blank">FB</a>
+            <a href="https://t.me/nahidgaming8" target="_blank">TG</a>
+            <a href="https://www.youtube.com/@NAHIDGAMING8" target="_blank">YT</a>
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>NAHID GAMING OFFICIAL</h1>
-        <a href="https://t.me/nahidgaming8" target="_blank" class="msg-btn">Telegram এ জয়েন করুন</a>
-    </div>
-
-    <div class="product-container">
-        <div class="product-card">
-            <h3>Weekly / Monthly</h3>
-            <a href="https://t.me/nahidgaming8" class="buy-btn">অর্ডার করুন</a>
+    <div class="main-content">
+        <div class="order-container">
+            <h2>অর্ডার করুন</h2>
+            <p>বিকাশ/নগদ: <strong>01314547049</strong></p>
+            <form action="/submit-order" method="POST">
+                <input type="text" name="uid" placeholder="গেমের UID" required>
+                <input type="text" name="payment_num" placeholder="আপনার পেমেন্ট নাম্বার" required>
+                <button type="submit" class="buy-btn">অর্ডার সাবমিট করুন</button>
+            </form>
         </div>
-        <div class="product-card">
-            <h3>Free Fire - 100 Like</h3>
-            <a href="https://t.me/nahidgaming8" class="buy-btn">অর্ডার করুন</a>
+
+        <div class="pending-container">
+            <h2>Pending Orders</h2>
+            <div class="pending-list">
+                <p>এখনো কোনো অর্ডার পেন্ডিং নেই।</p>
+                </div>
         </div>
     </div>
 
