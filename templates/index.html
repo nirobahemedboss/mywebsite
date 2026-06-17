@@ -1,62 +1,55 @@
-<div class="form-group">
-                <label>টপআপের মাধ্যম বেছে নিন</label>
-                <select name="order_type" id="order_type" onchange="toggleFields()" required>
-                    <option value="Free Fire ID Code">Free Fire UID (আইডি কোড)</option>
-                    <option value="Social Media">In-Game Login (Facebook/Google)</option>
-                </select>
-            </div>
-
-            <!-- UID ফিল্ড -->
-            <div id="id_code_fields">
-                <div class="form-group">
-                    <label>গেম UID</label>
-                    <input type="number" name="uid" required placeholder="আপনার গেম UID দিন">
+<i class="fa-solid fa-clock-rotate-left"></i> Pending Orders
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-700 text-gray-400 text-xs">
+                                    <th class="pb-2">UID</th>
+                                    <th class="pb-2 text-right">স্ট্যাটাস</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700/50 text-xs">
+                                <!-- পাইথনের ডাটাবেস লুপ এখানে ইনজেক্ট হবে -->
+                                <tr>
+                                    <td class="py-2.5 font-mono text-gray-300">284719472</td>
+                                    <td class="py-2.5 text-right"><span class="bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full font-semibold">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-mono text-gray-300">938401923</td>
+                                    <td class="py-2.5 text-right"><span class="bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full font-semibold">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <p class="text-[11px] text-gray-500 mt-4 text-center italic">*অর্ডার সম্পন্ন হতে ১-৫ মিনিট সময় লাগতে পারে।</p>
             </div>
+        </div>
 
-            <!-- সোশ্যাল মিডিয়া লগইন ফিল্ড -->
-            <div id="social_fields" class="hidden">
-                <div class="form-group">
-                    <label>লগইন টাইপ</label>
-                    <select name="login_type">
-                        <option value="Facebook">Facebook Login</option>
-                        <option value="Google">Google Login</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>নম্বর অথবা ইমেইল</label>
-                    <input type="text" name="number_or_email" placeholder="অ্যাকাউন্টের ইমেইল/নম্বর দিন">
-                </div>
-                <div class="form-group">
-                    <label>পাসওয়ার্ড</label>
-                    <input type="password" name="password" placeholder="অ্যাকাউন্টের পাসওয়ার্ড দিন">
-                </div>
-            </div>
+    </main>
 
-            <!-- প্যাকেজ লিস্ট -->
-            <div class="form-group">
-                <label>প্যাকেজ সিলেক্ট করুন</label>
-                <select name="package" required>
-                    <option value="" disabled selected>যা নিতে চান বাছুন...</option>
-                    <option value="25 Diamond - 23 Tk">25 💎 — ২৩ টাকা</option>
-                    <option value="50 Diamond - 45 Tk">50 💎 — ৪৫ টাকা</option>
-                    <option value="115 Diamond - 85 Tk">115 💎 — ৮৫ টাকা</option>
-                    <option value="240 Diamond - 165 Tk">240 💎 — ১৬৫ টাকা</option>
-                    <option value="505 Diamond - 340 Tk">505 💎 — ৩৪০ টাকা</option>
-                    <option value="1020 Diamond - 670 Tk">1020 💎 — ৬৭০ টাকা</option>
-                    <option value="Weekly Membership">Weekly Membership 🎫 — ১৬০ টাকা</option>
-                    <option value="Monthly Membership">Monthly Membership 👑 — ৬৫০ টাকা</option>
-                </select>
-            </div>
+    <!-- ৬. ফুটার (আপনার আসল সোশ্যাল মিডিয়া লিংকগুলো সেট করা হয়েছে) -->
+    <footer class="bg-gray-950 text-gray-400 py-6 border-t border-gray-800 text-center text-sm mt-12">
+        <div class="flex justify-center gap-6 mb-4 text-xl">
+            <!-- ফেসবুক -->
+            <a href="https://www.facebook.com/nerobkhan82" target="_blank" class="text-gray-400 hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+            <!-- ইনস্টাগ্রাম -->
+            <a href="https://www.instagram.com/nahid_ahemed_0" target="_blank" class="text-gray-400 hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+            <!-- টেলিগ্রাম -->
+            <a href="https://t.me/nahidgaming8" target="_blank" class="text-gray-400 hover:text-sky-400 transition"><i class="fa-brands fa-telegram"></i></a>
+            <!-- ইউটিউব -->
+            <a href="https://youtube.com/@nahidgaming8" target="_blank" class="text-gray-400 hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <p class="text-xs">&copy; 2021-2026 NAHID TOPUP. All Rights Reserved.</p>
+    </footer>
 
-            <!-- পেমেন্ট নম্বর -->
-            <div class="form-group">
-                <label>বিকাশ/নগদ নম্বর (টাকা পাঠানোর নম্বর)</label>
-                <input type="text" name="payment_no" required placeholder="আপনার পার্সোনাল নম্বর দিন">
-            </div>
-
-            <button type="submit" class="submit-btn">অর্ডার সাবমিট করুন</button>
-        </form>
+    <!-- মেসেঞ্জার চ্যাট বাটন (ক্লিক করলে সরাসরি আপনার ফেসবুক প্রোফাইলে চ্যাট ওপেন হবে) -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <a href="https://m.me/nerobkhan82" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg flex items-center justify-center transition group relative">
+            <i class="fa-brands fa-facebook-messenger text-2xl"></i>
+            <span class="absolute right-14 bg-white text-gray-900 text-xs font-bold px-2 py-1 rounded shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Need Help?</span>
+        </a>
     </div>
 
 </body>
