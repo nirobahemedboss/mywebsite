@@ -2,74 +2,34 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ data.title }}</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; background-color: #f4f6f9; margin: 0; padding: 0; color: #333; }
-        .container { max-width: 600px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #4a0e4e; margin-bottom: 5px; }
-        .notice { background: #fff3cd; color: #856404; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 20px; border: 1px solid #ffeeba; }
-        .payment-info { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #d946ef; }
-        .payment-info p { margin: 5px 0; font-size: 16px; }
-        .product-card { border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
-        .product-card h3 { margin: 0 0 10px 0; color: #1e293b; }
-        .price { color: #e11d48; font-weight: bold; font-size: 18px; }
-        .btn { display: block; width: 100%; background: #d946ef; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s; text-align: center; text-decoration: none; box-sizing: border-box; }
-        .btn:hover { background: #c026d3; }
-        .social-links { text-align: center; margin-top: 20px; }
-        .social-links a { margin: 0 10px; color: #475569; font-weight: bold; text-decoration: none; }
-        .social-links a:hover { color: #d946ef; }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>NAHID TOPUP</title>
 </head>
 <body>
 
-<div class="container">
-    <h1>{{ data.title }}</h1>
-    <div class="notice">{{ data.notice }}</div>
+    <nav class="navbar">
+        <div class="logo">NAHID TOPUP</div>
+    </nav>
 
-    <div class="payment-info">
-        <h3 style="margin-top: 0; color: #1e293b;">📌 আমাদের পেমেন্ট নাম্বারসমূহ (Personal):</h3>
-        <p><strong>বিকাশ (bKash):</strong> <span style="color: #d946ef; font-weight: bold;">{{ data.bkash }}</span></p>
-        <p><strong>নগদ (Nagad):</strong> <span style="color: #ff6a00; font-weight: bold;">{{ data.nagad }}</span></p>
+    <div class="hero">
+        <h2>সেরা মূল্যে প্রিমিয়াম সার্ভিস</h2>
     </div>
 
-    <h2>🛍️ আমাদের প্রোডাক্টসমূহ:</h2>
-    <div class="product-card">
-        <h3>💎 {{ data.products.diamond.name }}</h3>
-        <p>মূল্য: <span class="price">{{ data.products.diamond.price }} টাকা</span></p>
-        <p style="color: #64748b; font-size: 14px;">নোট: {{ data.products.diamond.note }}</p>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150" alt="Product">
+            <h4>Weekly / Monthly</h4>
+            <button class="order-btn">অর্ডার করুন</button>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150" alt="Product">
+            <h4>Free Fire Topup</h4>
+            <button class="order-btn">অর্ডার করুন</button>
+        </div>
     </div>
-    <div class="product-card">
-        <h3>📱 {{ data.products.apps.name }}</h3>
-        <p>মূল্য: <span class="price">{{ data.products.apps.price }} টাকা</span></p>
-        <p style="color: #64748b; font-size: 14px;">নোট: {{ data.products.apps.note }}</p>
-    </div>
 
-    <h2>📝 অর্ডার ফর্ম:</h2>
-    <form action="/order" method="post">
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">প্রোডাক্ট সিলেক্ট করুন:</label>
-        <select name="product_name" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd;">
-            <option value="{{ data.products.diamond.name }}">{{ data.products.diamond.name }}</option>
-            <option value="{{ data.products.apps.name }}">{{ data.products.apps.name }}</option>
-        </select>
-
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">গেম UID (শুধু ডায়মন্ডের জন্য):</label>
-        <input type="text" name="game_uid" placeholder="যেমন: 123456789" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
-
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">পেমেন্ট মেথড:</label>
-        <select name="payment_method" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd;">
-            <option value="bKash">bKash</option>
-            <option value="Nagad">Nagad</option>
-        </select>
-
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">যে নাম্বার থেকে টাকা পাঠিয়েছেন:</label>
-        <input type="text" name="sender_number" placeholder="01XXXXXXXXX" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
-
-        <label style="font-weight: bold; display: block; margin-bottom: 5px;">টাকা পাঠানোর TxID:</label>
-        <input type="text" name="txid" placeholder="যেমন: TRX123456" required style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;">
-
-        <button type="submit" class="btn">অর্ডার সাবমিট করুন</button>
-    </form>
+</body>
+</html>
 
     <div class="social-links">
         <h3>📞 আমাদের সাথে যোগাযোগ করুন:</h3>
