@@ -4,10 +4,7 @@ import os
 app = Flask(name)
 app.secret_key = "nahid_secret_key"
 
-# অ্যাডমিন প্যানেলের পাসওয়ার্ড
 ADMIN_PASSWORD = "nahidtopupadmin"
-
-# ডেমো ডেটাবেস
 orders = []
 
 @app.route('/', methods=['GET', 'POST'])
