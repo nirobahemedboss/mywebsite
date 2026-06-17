@@ -1,91 +1,68 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for, session
+import os
 
-app = Flask(__name__)
+app = Flask(name)
+app.secret_key = "nahid_secret_key"
 
-@app.route('/')
-def home():
-    facebook_url = "https://www.facebook.com/nerobkhan82"
-    instagram_url = "https://www.instagram.com/nahid_ahemed_"
-    youtube_url = "https://youtube.com/@nahidgaming8"
+# অ্যাডমিন প্যানেলের পাসওয়ার্ড
+ADMIN_PASSWORD = "nahidtopupadmin"
 
-    html_content = f"""
-    <!DOCTYPE html>
-    <html lang="bn">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>নাহিদ আহমেদের ওয়েবসাইট</title>
-        <style>
-            body {{
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #0f172a;
-                color: #f8fafc;
-                text-align: center;
-                padding: 60px 20px;
-                margin: 0;
-            }}
-            .profile-card {{
-                max-width: 450px;
-                margin: 0 auto;
-                background: #1e293b;
-                padding: 40px 30px;
-                border-radius: 20px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                border: 1px solid #334155;
-            }}
-            h1 {{
-                font-size: 32px;
-                margin-bottom: 10px;
-                color: #38bdf8;
-            }}
-            p {{
-                color: #94a3b8;
-                font-size: 16px;
-                margin-bottom: 35px;
-            }}
-            .btn-container {{
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }}
-            .btn {{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 14px;
-                font-size: 18px;
-                font-weight: bold;
-                color: white;
-                text-decoration: none;
-                border-radius: 12px;
-                transition: transform 0.2s, box-shadow 0.2s;
-            }}
-            .btn:hover {{
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }}
-            .facebook {{ background-color: #1877F2; }}
-            .instagram {{ background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }}
-            .youtube {{ background-color: #FF0000; }}
-        </style>
-    </head>
-    <body>
+# ডেমো ডেটাবেস (অর্ডার জমা রাখার জন্য)
+orders = []
 
-        <div class="profile-card">
-            <h1>নাহিদ আহমেদ</h1>
-            <p>আমার প্রথম ওয়েবসাইট! নিচে আমার সোশ্যাল মিডিয়া প্রোফাইলগুলো দেওয়া হলো:</p>
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        uid = request.form.get('uid')
+        payment_no = request.form.get('payment_no')
+        package = request.form.get('diamond_package')
+        
+        if uid and payment_no and package:
+            orders.append({
+                "id": len(orders) + 1,
+                "uid": uid,
+                "payment_no": payment_no,
+                "package": package,
+                "status": "Pending"
+            })
+        return redirect(url_for('index'))
+        
+    return render_template('index.html', orders=orders)
 
-            <div class="btn-container">
-                <a href="{facebook_url}" target="_blank" class="btn facebook">Facebook পেজ</a>
-                <a href="{instagram_url}" target="_blank" class="btn instagram">Instagram প্রোফাইল</a>
-                <a href="{youtube_url}" target="_blank" class="btn youtube">YouTube চ্যানেল</a>
-            </div>
-        </div>
+# অ্যাডমিন লগইন রাউট
+@app.route('/nahid-admin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            return redirect(url_for('admin_dashboard'))
+        else:
+            return render_template('admin_login.html', error="ভুল পাসওয়ার্ড!")
+    return render_template('admin_login.html')
 
-    </body>
-    </html>
-    """
-    return html_content
+# অ্যাডমিন ড্যাশবোর্ড রাউট
+@app.route('/nahid-admin/dashboard')
+def admin_dashboard():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    return render_template('admin_dashboard.html', orders=orders)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# অর্ডারের স্ট্যাটাস পরিবর্তন করার রাউট
+@app.route('/complete-order/<int:order_id>')
+def complete_order(order_id):
+    if session.get('admin_logged_in'):
+        for order in orders:
+            if order['id'] == order_id:
+                order['status'] = 'Completed'
+    return redirect(url_for('admin_dashboard'))
+
+# লগআউট রাউট
+@app.route('/admin-logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    return redirect(url_for('index'))
+
+if name == 'main':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
