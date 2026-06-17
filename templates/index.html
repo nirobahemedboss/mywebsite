@@ -1,67 +1,25 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAHID TOPUP STORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-950 text-white font-sans min-h-screen flex items-center justify-center p-4">
-
-    <div class="w-full max-w-md bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl">
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-extrabold text-orange-500 tracking-wide uppercase">Nahid Topup Store</h1>
-            <p class="text-gray-400 text-sm mt-1">দ্রুত এবং নিরাপদ ডায়মন্ড টপআপ</p>
-        </div>
-
-        <form action="/" method="POST" class="space-y-4">
-            
-            <div>
-                <label class="block text-sm font-semibold text-gray-300 mb-1">গেম UID</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                        <i class="fa-solid fa-user text-orange-500"></i>
-                    </span>
-                    <input type="number" name="uid" required placeholder="আপনার গেম UID দিন"
-                        class="w-full bg-gray-950 border border-gray-700 rounded-xl pl-10 pr-3 py-2.5 text-white focus:outline-none focus:border-orange-500 transition">
-                </div>
+<div>
+                <label class="block text-sm font-semibold text-gray-300 mb-1">প্যাকেজ সিলেক্ট করুন</label>
+                <select name="package" required
+                    class="w-full bg-gray-950 border border-gray-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-orange-500">
+                    <option value="" disabled selected>যা নিতে চান বাছুন...</option>
+                    <option value="25 Diamond - 23 Tk">25 💎 — ২৩ টাকা</option>
+                    <option value="50 Diamond - 45 Tk">50 💎 — ৪৫ টাকা</option>
+                    <option value="115 Diamond - 85 Tk">115 💎 — ৮৫ টাকা</option>
+                    <option value="240 Diamond - 165 Tk">240 💎 — ১৬৫ টাকা</option>
+                    <option value="Weekly Membership">Weekly Membership 🎫 — ১৬০ টাকা</option>
+                    <option value="Monthly Membership">Monthly Membership 👑 — ৬৫০ টাকা</option>
+                </select>
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-300 mb-1">ডায়মন্ডের পরিমাণ সিলেক্ট করুন</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                        <i class="fa-solid fa-gem text-orange-500"></i>
-                    </span>
-                    <select name="diamond_package" required
-                        class="w-full bg-gray-950 border border-gray-700 rounded-xl pl-10 pr-3 py-2.5 text-white focus:outline-none focus:border-orange-500 transition">
-                        <option value="" disabled selected>কত ডায়মন্ড নিতে চান বাছুন...</option>
-                        <option value="25 Diamond - 23 Tk">25 💎 — ২৩ টাকা</option>
-                        <option value="50 Diamond - 45 Tk">50 💎 — ৪৫ টাকা</option>
-                        <option value="115 Diamond - 85 Tk">115 💎 — ৮৫ টাকা</option>
-                        <option value="240 Diamond - 165 Tk">240 💎 — ১৬৫ টাকা</option>
-                        <option value="505 Diamond - 340 Tk">505 💎 — ৩৪০ টাকা</option>
-                        <option value="1020 Diamond - 670 Tk">1020 💎 — ৬৭০ টাকা</option>
-                        <option value="Weekly Membership">Weekly Membership 🎫 — ১৬০ টাকা</option>
-                        <option value="Monthly Membership">Monthly Membership 👑 — ৬auto টাকা</option>
-                    </select>
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-sm font-semibold text-gray-300 mb-1">বিকাশ/নগদ নম্বর (যেখান থেকে টাকা পাঠিয়েছেন)</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                        <i class="fa-solid fa-wallet text-orange-500"></i>
-                    </span>
-                    <input type="text" name="payment_no" required placeholder="আপনার পার্সোনাল নম্বর দিন"
-                        class="w-full bg-gray-950 border border-gray-700 rounded-xl pl-10 pr-3 py-2.5 text-white focus:outline-none focus:border-orange-500 transition">
-                </div>
+                <label class="block text-sm font-semibold text-gray-300 mb-1">বিকাশ/নগদ নম্বর (টাকা পাঠানোর নম্বর)</label>
+                <input type="text" name="payment_no" required placeholder="আপনার পার্সোনাল নম্বর দিন"
+                    class="w-full bg-gray-950 border border-gray-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-orange-500">
             </div>
 
             <button type="submit"
-                class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg shadow-orange-900/40 mt-4">
+                class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg mt-4">
                 অর্ডার সাবমিট করুন
             </button>
         </form>
