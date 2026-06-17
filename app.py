@@ -7,7 +7,7 @@ app.secret_key = "nahid_secret_key"
 # অ্যাডমিন প্যানেলের পাসওয়ার্ড
 ADMIN_PASSWORD = "nahidtopupadmin"
 
-# ডেমো ডেটাবেস
+# ডেমো ডেটাবেস (অর্ডার জমা রাখার জন্য)
 orders = []
 
 @app.route('/', methods=['GET', 'POST'])
@@ -29,6 +29,7 @@ def index():
         
     return render_template('index.html', orders=orders)
 
+# অ্যাডমিন লগইন রাউট
 @app.route('/nahid-admin', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -40,12 +41,14 @@ def admin_login():
             return render_template('admin_login.html', error="ভুল পাসওয়ার্ড!")
     return render_template('admin_login.html')
 
+# অ্যাডমিন ড্যাশবোর্ড রাউট
 @app.route('/nahid-admin/dashboard')
 def admin_dashboard():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login'))
     return render_template('admin_dashboard.html', orders=orders)
 
+# অর্ডারের স্ট্যাটাস পরিবর্তন করার রাউট
 @app.route('/complete-order/<int:order_id>')
 def complete_order(order_id):
     if session.get('admin_logged_in'):
@@ -54,6 +57,7 @@ def complete_order(order_id):
                 order['status'] = 'Completed'
     return redirect(url_for('admin_dashboard'))
 
+# লগআউট রাউট
 @app.route('/admin-logout')
 def admin_logout():
     session.pop('admin_logged_in', None)
