@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
-app = Flask(name)
+# এখানে কোনো আন্ডারস্কোর নেই, ডিরেক্ট নাম দেওয়া
+app = Flask("my_topup_app")
 app.secret_key = "nahid_secret_key"
 
 # অ্যাডমিন প্যানেলের পাসওয়ার্ড
 ADMIN_PASSWORD = "nahidtopupadmin"
 
-# ডেমো ডেটাবেস (অর্ডার জমা রাখার জন্য)
+# ডেমো ডেটাবেস
 orders = []
 
 @app.route('/', methods=['GET', 'POST'])
@@ -29,7 +30,6 @@ def index():
         
     return render_template('index.html', orders=orders)
 
-# অ্যাডমিন লগইন রাউট
 @app.route('/nahid-admin', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -41,14 +41,12 @@ def admin_login():
             return render_template('admin_login.html', error="ভুল পাসওয়ার্ড!")
     return render_template('admin_login.html')
 
-# অ্যাডমিন ড্যাশবোর্ড রাউট
 @app.route('/nahid-admin/dashboard')
 def admin_dashboard():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login'))
     return render_template('admin_dashboard.html', orders=orders)
 
-# অর্ডারের স্ট্যাটাস পরিবর্তন করার রাউট
 @app.route('/complete-order/<int:order_id>')
 def complete_order(order_id):
     if session.get('admin_logged_in'):
@@ -57,12 +55,12 @@ def complete_order(order_id):
                 order['status'] = 'Completed'
     return redirect(url_for('admin_dashboard'))
 
-# লগআউট রাউট
 @app.route('/admin-logout')
 def admin_logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('index'))
 
-if name == 'main':
+# এখানেও কোনো আন্ডারস্কোর ছাড়া ডিরেক্ট রান করা হচ্ছে
+if True:
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
