@@ -1,71 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; }
-        .box { background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); flex: 1; min-width: 320px; }
-        .full-width { flex: 1 1 100%; }
-        h1, h2, h3 { color: #7c3aed; margin-top: 0; }
-        label { display: block; margin-top: 10px; font-weight: bold; color: #475569; }
-        input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; box-sizing: border-box; }
-        .btn { background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1rem; }
-        .logout-btn { display: inline-block; background: #ef4444; color: white; padding: 8px 15px; text-decoration: none; border-radius: 6px; float: right; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #ffffff; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #334155; }
-        th { background-color: #f1f5f9; color: #4f46e5; font-weight: bold; }
-        .status-pending { color: #d97706; font-weight: bold; background: #fef3c7; padding: 3px 8px; border-radius: 4px; }
-        .status-completed { color: #16a34a; font-weight: bold; background: #dcfce7; padding: 3px 8px; border-radius: 4px; }
-        .action-btn { background: #16a34a; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
-    </style>
+    <meta charset="UTF-8"><title>Admin Dashboard - NAHID TOPUP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <div style="max-width: 1100px; margin: 0 auto 20px auto; overflow: hidden; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
-        <a href="/admin/logout" class="logout-btn">লগআউট করুন</a>
-        <h1 style="margin: 0; color: #4f46e5;">⚙️ Admin Control Panel</h1>
-    </div>
-    <form action="/admin/update" method="POST" class="container">
-        <div class="box">
-            <h2>১. সাধারণ সেটিংস ও সোশ্যাল লিংক</h2>
-            <label>ওয়েবসাইটের নাম (Title):</label>
-            <input type="text" name="title" value="{{ data.title }}" required>
-            <label>ওয়েবসাইটের নোটিশ (Notice):</label>
-            <textarea name="notice" rows="2" required>{{ data.notice }}</textarea>
-            <label style="color: #2563eb;">🌐 ফেসবুক পেজ লিংক:</label>
-            <input type="url" name="fb_link" value="{{ data.fb_link }}">
-            <label style="color: #dc2626;">🔴 ইউটিউব চ্যানেল লিংক:</label>
-            <input type="url" name="yt_link" value="{{ data.yt_link }}">
-            <label style="color: #db2777;">✈️ ইনস্টাগ্রাম লিংক:</label>
-            <input type="url" name="telegram_link" value="{{ data.telegram_link }}">
-        </div>
-        <div class="box">
-            <h2>২. পেমেন্ট নাম্বার সেটআপ</h2>
-            <label>বিকাশ নাম্বার:</label>
-            <input type="text" name="bkash" value="{{ data.bkash }}" required>
-            <label>নগদ নাম্বার:</label>
-            <input type="text" name="nagad" value="{{ data.nagad }}" required>
-            <label>রকেট নাম্বার:</label>
-            <input type="text" name="rocket" value="{{ data.rocket }}" required>
-        </div>
-        <div class="box full-width" style="display: flex; flex-wrap: wrap; gap: 20px; padding: 0; background: transparent; border: none;">
-            <div class="box" style="margin:0;">
-                <h3>💎 ডায়মন্ডパッケージ</h3>
-                <input type="text" name="diamond_name" value="{{ data.products.diamond.name }}" required>
-                <input type="text" name="diamond_price" value="{{ data.products.diamond.price }}" required>
-                <input type="text" name="diamond_note" value="{{ data.products.diamond.note }}" required>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-orange-500"><i class="fa-solid fa-user-shield"></i> NAHID TOPUP Dashboard</h1>
+        <a href="/admin-logout" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition">লগআউট করুন</a>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden shadow-xl">
+            <div class="p-4 bg-gray-850 border-b border-gray-700"><h3 class="font-bold">আগত অর্ডারসমূহের তালিকা</h3></div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-900 text-gray-400 text-xs">
+                        <tr>
+                            <th class="p-4">UID</th>
+                            <th class="p-4">পেমেন্ট নম্বর/Txn ID</th>
+                            <th class="p-4">প্যাকেজ</th>
+                            <th class="p-4">স্ট্যাটাস</th>
+                            <th class="p-4 text-center">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-sm">
+                        {% for order in orders %}
+                        <tr class="hover:bg-gray-750">
+                            <td class="p-4 font-mono font-bold text-orange-400 select-all">{{ order.uid }}</td>
+                            <td class="p-4 font-mono select-all">{{ order.payment_no }}</td>
+                            <td class="p-4 text-gray-300 font-semibold">{{ order.package }}</td>
+                            <td class="p-4">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold {{ 'bg-green-500/10 text-green-400' if order.status == 'Completed' else 'bg-yellow-500/10 text-yellow-400' }}">
+                                    {{ order.status }}
+                                </span>
+                            </td>
+                            <td class="p-4 flex justify-center gap-2">
+                                {% if order.status == 'Pending' %}
+                                <a href="/complete-order/{{ order.id }}" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Complete</a>
+                                {% else %}
+                                <span class="text-xs text-gray-500 italic">Done</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <div class="box" style="margin:0;">
-                <h3>🚀 প্রিমিয়াম অ্যাপ</h3>
-                <input type="text" name="apps_name" value="{{ data.products.apps.name }}" required>
-                <input type="text" name="apps_price" value="{{ data.products.apps.price }}" required>
-                <input type="text" name="apps_note" value="{{ data.products.apps.note }}" required>
-            </div>
         </div>
-        <button type="submit" class="btn">সব তথ্য আপডেট করুন ✨</button>
-    </form>
-    <div class="container" style="margin-top: 30px;"><div class="box full-width"><h2>📥 অর্ডার লিস্ট (Live Orders)</h2><table><thead><tr><th>ID</th><th>প্রোডাক্ট</th><th>UID/Email</th><th>মেথড</th><th>নাম্বার</th><th>TxID</th><th>অবস্থা</th><th>অ্যাকশন</th></tr></thead><tbody>{% if orders %}{% for order in orders %}<tr><td>#{{ order.id }}</td><td>{{ order.product }}</td><td>{{ order.uid }}</td><td>{{ order.method }}</td><td>{{ order.sender }}</td><td>{{ order.txid }}</td><td>{% if order.status == 'Pending' %}<span class="status-pending">⏳ Pending</span>{% else %}<span class="status-completed">✅ Completed</span>{% endif %}</td><td>{% if order.status == 'Pending' %}<a href="/admin/order/complete/{{ order.id }}" class="action-btn">Done করুন</a>{% else %}No Action{% endif %}</td></tr>{% endfor %}{% else %}<tr><td colspan="8" style="text-align: center; color: #94a3b8; padding: 20px;">কোনো অর্ডার আসেনি!</td></tr>{% endif %}</tbody></table></div></div>
+    </main>
 </body>
 </html>
