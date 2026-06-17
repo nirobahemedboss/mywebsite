@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
 app = Flask(name)
-app.secret_key = "nahid_secret_key" # সিকিউরিটি কি
+app.secret_key = "nahid_secret_key"
 
-# অ্যাডমিন প্যানেলের পাসওয়ার্ড (তুমি চাইলে পরিবর্তন করতে পারো)
+# অ্যাডমিন প্যানেলের পাসওয়ার্ড
 ADMIN_PASSWORD = "nahidtopupadmin"
 
 # ডেমো ডেটাবেস (অর্ডার জমা রাখার জন্য)
@@ -18,7 +18,6 @@ def index():
         package = request.form.get('diamond_package')
         
         if uid and payment_no and package:
-            # নতুন অর্ডার লিস্টে জমা করা
             orders.append({
                 "id": len(orders) + 1,
                 "uid": uid,
