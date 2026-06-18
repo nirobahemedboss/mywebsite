@@ -1,31 +1,46 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+import os
 
 app = Flask(__name__)
+app.secret_key = 'nahid_secret_key_123' 
 
-# ১. হোম পেজ (index.html) রেন্ডার করার জন্য
+# আপনার দেওয়া পাসওয়ার্ড
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'nirob945@nt'
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# ২. লগইন পেজ (login.html) রেন্ডার করার জন্য
+# লগইন রাউট
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
-        # এখানে লগইন লজিক থাকবে (আপাতত সরাসরি ড্যাশবোর্ডে পাঠিয়ে দেওয়া হচ্ছে)
-        return redirect(url_for('dashboard'))
-    return render_template('login.html')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('dashboard'))
+        else:
+            error = "ভুল পাসওয়ার্ড বা ইউজারনেম!"
+            
+    return render_template('login.html', error=error)
 
-# ৩. ড্যাশবোর্ড পেজ (dashboard.html) রেন্ডার করার জন্য
+# ড্যাশবোর্ড রাউট (সুরক্ষিত)
 @app.route('/dashboard')
 def dashboard():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template('dashboard.html')
 
-import os
-
-import os
+# লগআউট রাউট
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    # Render বা হোস্টিং সার্ভারের পোর্ট ধরার জন্য os.environ ব্যবহার করতে হয়
     port = int(os.environ.get('PORT', 5000))
-    # host অবশ্যই '0.0.0.0' হতে হবে
     app.run(host='0.0.0.0', port=port)
