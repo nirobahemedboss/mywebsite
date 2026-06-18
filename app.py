@@ -20,5 +20,10 @@ def login():
 def dashboard():
     return render_template('dashboard.html')
 
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Render বা হোস্টিং সার্ভারের পোর্ট ধরার জন্য os.environ ব্যবহার করতে হয়
+    port = int(os.environ.get('PORT', 5000))
+    # host অবশ্যই '0.0.0.0' হতে হবে
+    app.run(host='0.0.0.0', port=port)
