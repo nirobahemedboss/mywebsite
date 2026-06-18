@@ -7,6 +7,12 @@ app.secret_key = 'nahid_secret_key_123'
 ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = 'nirob945@nt'
 
+# আসল ডেটা স্টোরেজ (যা পরিবর্তন করা যাবে)
+db_settings = {
+    "bkash": "017XXXXXXXX",
+    "nagad": "019XXXXXXXX"
+}
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -26,15 +32,21 @@ def login():
             
     return render_template('login.html', error=error)
 
-# ড্যাশবোর্ড রাউট - বাটন ক্লিকের উপর ভিত্তি করে আলাদা কন্টেন্ট দেখাবে
-@app.route('/dashboard')
+# ড্যাশবোর্ড এবং পেমেন্ট নম্বর আপডেট করার মেইন লজিক
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     
-    # কোন বাটনে ক্লিক করা হয়েছে তা ইউআরএল থেকে ধরবে (Default: main)
+    # যদি অ্যাডমিন নতুন নম্বর সাবমিট করে (POST Request)
+    if request.method == 'POST':
+        db_settings['bkash'] = request.form.get('bkash_num')
+        db_settings['nagad'] = request.form.get('nagad_num')
+        return redirect(url_for('dashboard', page='settings'))
+
     current_page = request.args.get('page', 'main')
-    return render_template('dashboard.html', current_page=current_page)
+    # টেমপ্লেটে আসল নম্বরগুলো পাঠানো হচ্ছে (data=db_settings)
+    return render_template('dashboard.html', current_page=current_page, data=db_settings)
 
 @app.route('/logout')
 def logout():
