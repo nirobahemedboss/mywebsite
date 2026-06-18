@@ -1,1 +1,94 @@
-<a href="{{ url_for('home') }}">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - NAHID TOPUP</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background-color: #1a1a2e; color: #fff; }
+        .sidebar { width: 260px; background-color: #162447; padding: 20px; display: flex; flex-direction: column; box-shadow: 2px 0 5px rgba(0,0,0,0.3); }
+        .sidebar h2 { text-align: center; color: #e43f5a; margin-bottom: 30px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .sidebar a { color: #fff; padding: 14px 20px; text-decoration: none; border-radius: 6px; margin-bottom: 8px; font-weight: 500; transition: 0.3s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #e43f5a; color: white; }
+        .main-content { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: #162447; padding: 15px 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .header h3 { margin: 0; color: #fff; }
+        .logout-btn { background-color: #e43f5a; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.3s; }
+        .logout-btn:hover { background-color: #b92b45; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .stat-card { background: #162447; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); border-left: 5px solid #e43f5a; }
+        .stat-card h4 { margin: 0; color: #888; font-size: 14px; text-transform: uppercase; }
+        .stat-card p { margin: 10px 0 0 0; font-size: 28px; font-weight: bold; color: #fff; }
+        .order-table-container { margin-top: 30px; background: #162447; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .order-table-container h3 { margin-top: 0; margin-bottom: 20px; color: #e43f5a; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #1a1a2e; }
+        th { background-color: #1f4068; color: #fff; font-weight: 600; }
+        tr:hover { background-color: #1f4068; }
+        .status { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .status.pending { background: #ff9800; color: #fff; }
+        .status.completed { background: #4caf50; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Nahid Admin</h2>
+    <a href="#" class="active">ড্যাশবোর্ড</a>
+    <a href="#">সব অর্ডার</a>
+    <a href="#">ইউজার লিস্ট</a>
+    <a href="#">পেমেন্ট সেটিংস</a>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <h3>স্বাগতম, অ্যাডমিন প্যানেল</h3>
+        <a href="/" class="logout-btn">Logout</a>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>মোট অর্ডার</h4>
+            <p>১২৪ টি</p>
+        </div>
+        <div class="stat-card">
+            <h4>পেন্ডিং অর্ডার</h4>
+            <p>৫ টি</p>
+        </div>
+        <div class="stat-card">
+            <h4>আজকের সেল</h4>
+            <p>৳ ৪,৫০০</p>
+        </div>
+    </div>
+
+    <div class="order-table-container">
+        <h3>সাম্প্রতিক অর্ডারসমূহ</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>গেমার UID</th>
+                    <th>প্যাকেজ</th>
+                    <th>Transaction ID</th>
+                    <th>স্ট্যাটাস</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>284719472</td>
+                    <td>Free Fire New Top-Up Event</td>
+                    <td>TXN8392102</td>
+                    <td><span class="status pending">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>938401923</td>
+                    <td>Free Fire Diamond Top Up</td>
+                    <td>TXN7482910</td>
+                    <td><span class="status completed">Completed</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
