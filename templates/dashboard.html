@@ -1,81 +1,73 @@
-<div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 mb-6">
-    <h3 class="text-xl font-bold text-orange-500 mb-4">নতুন প্যাকেজ যোগ করুন</h3>
-    <form method="POST" action="/admin-dashboard" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div>
-            <label class="text-xs text-gray-400">Package Name</label>
-            <input type="text" name="package_name" required placeholder="যেমন: Free Fire 100 Diamond" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
-        </div>
-        <div>
-            <label class="text-xs text-gray-400">Price (টাকা)</label>
-            <input type="number" name="package_price" required placeholder="যেমন: 85" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
-        </div>
-        <div>
-            <label class="text-xs text-gray-400">Image URL</label>
-            <input type="text" name="package_image" placeholder="ছবির অনলাইন লিংক বসান" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
-        </div>
-        <div>
-            <label class="text-xs text-gray-400">Tag (New / Hot)</label>
-            <select name="package_tag" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
-                <option value="NONE">None</option>
-                <option value="New">New</option>
-                <option value="Hot">Hot</option>
-            </select>
-        </div>
-        <div class="md:col-span-4 text-right">
-            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl transition">প্যাকেজ পাবলিশ করুন</button>
-        </div>
-    </form>
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8"><title>Admin Dashboard - NAHID TOPUP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার ওয়েবসাইট ও অ্যাডমিন প্যানেল</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9; }
+        header { background: #343a40; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header a { color: white; text-decoration: none; margin-left: 15px; }
+        .container { max-width: 900px; margin: 30px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; position: relative; }
+        .btn-delete { background: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 3px; cursor: pointer; text-decoration: none; position: absolute; right: 15px; top: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .admin-box { background: #e9ecef; padding: 20px; border-radius: 5px; margin-bottom: 30px; border-left: 5px solid #007bff; }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-    <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-orange-500"><i class="fa-solid fa-user-shield"></i> NAHID TOPUP Dashboard</h1>
-        <a href="/admin-logout" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition">লগআউট করুন</a>
-    </header>
+<body>
 
-    <main class="container mx-auto px-4 py-8 max-w-5xl">
-        <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden shadow-xl">
-            <div class="p-4 bg-gray-850 border-b border-gray-700"><h3 class="font-bold">আগত অর্ডারসমূহের তালিকা</h3></div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-gray-900 text-gray-400 text-xs">
-                        <tr>
-                            <th class="p-4">UID</th>
-                            <th class="p-4">পেমেন্ট নম্বর/Txn ID</th>
-                            <th class="p-4">প্যাকেজ</th>
-                            <th class="p-4">স্ট্যাটাস</th>
-                            <th class="p-4 text-center">অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-700 text-sm">
-                        {% for order in orders %}
-                        <tr class="hover:bg-gray-750">
-                            <td class="p-4 font-mono font-bold text-orange-400 select-all">{{ order.uid }}</td>
-                            <td class="p-4 font-mono select-all">{{ order.payment_no }}</td>
-                            <td class="p-4 text-gray-300 font-semibold">{{ order.package }}</td>
-                            <td class="p-4">
-                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold {{ 'bg-green-500/10 text-green-400' if order.status == 'Completed' else 'bg-yellow-500/10 text-yellow-400' }}">
-                                    {{ order.status }}
-                                </span>
-                            </td>
-                            <td class="p-4 flex justify-center gap-2">
-                                {% if order.status == 'Pending' %}
-                                <a href="/complete-order/{{ order.id }}" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Complete</a>
-                                {% else %}
-                                <span class="text-xs text-gray-500 italic">Done</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<header>
+    <h1>আমার ওয়েবসাইট</h1>
+    <div>
+        <a href="{{ url_for('home') }}">হোম</a>
+        {% if session.get('logged_in') %}
+            <a href="{{ url_for('admin_panel') }}" style="color: #ffc107; font-weight: bold;">অ্যাডমিন প্যানেল</a>
+            <a href="{{ url_for('logout') }}">লগআউট</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">লগইন</a>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container">
+    
+    {% if admin_mode %}
+        <div class="admin-box">
+            <h3>নতুন কনটেন্ট বা পোস্ট যোগ করুন (অ্যাডমিন পাওয়ার)</h3>
+            <form action="{{ url_for('add_content') }}" method="POST">
+                <div class="form-group">
+                    <input type="text" name="title" placeholder="পোস্টের শিরোনাম" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="content" rows="4" placeholder="পোস্টের বিস্তারিত লিখুন..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">পোস্ট করুন</button>
+            </form>
         </div>
-    </main>
+    {% endif %}
+
+    <h2>ওয়েবসাইটের বর্তমান কনটেন্টসমূহ</h2>
+    <hr>
+    
+    {% if contents %}
+        {% for item in contents %}
+            <div class="card">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.content }}</p>
+                
+                {% if admin_mode %}
+                    <a href="{{ url_for('delete_content', content_id=item.id) }}" class="btn-delete" onclick="return confirm('আপনি কি নিশ্চিত যে এটি ডিলিট করতে চান?')">ডিলিট</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>কোনো পোস্ট বা কনটেন্ট পাওয়া যায়নি।</p>
+    {% endif %}
+
+</div>
+
 </body>
 </html>
