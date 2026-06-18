@@ -28,6 +28,9 @@
         .status { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         .status.pending { background: #ff9800; color: #fff; }
         .status.completed { background: #4caf50; color: #fff; }
+        input[type="text"] { width: 100%; max-width: 300px; padding: 10px; margin: 10px 0 20px 0; border: 1px solid #1f4068; background: #1a1a2e; color: white; border-radius: 4px; font-size: 16px; }
+        .save-btn { background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .save-btn:hover { background: #45a049; }
     </style>
 </head>
 <body>
@@ -48,35 +51,16 @@
     
     {% if current_page == 'main' %}
     <div class="stats-grid">
-        <div class="stat-card">
-            <h4>মোট অর্ডার</h4>
-            <p>১২৪ টি</p>
-        </div>
-        <div class="stat-card">
-            <h4>পেন্ডিং অর্ডার</h4>
-            <p>৫ টি</p>
-        </div>
-        <div class="stat-card">
-            <h4>আজকের সেল</h4>
-            <p>৳ ৪,৫০০</p>
-        </div>
+        <div class="stat-card"><h4>মোট অর্ডার</h4><p>১২৪ টি</p></div>
+        <div class="stat-card"><h4>পেন্ডিং অর্ডার</h4><p>৫ টি</p></div>
+        <div class="stat-card"><h4>আজকের সেল</h4><p>৳ ৪,৫০০</p></div>
     </div>
     <div class="order-table-container">
         <h3>সাম্প্রতিক অর্ডারসমূহ</h3>
         <table>
-            <thead>
-                <tr>
-                    <th>গেমার UID</th>
-                    <th>প্যাকেজ</th>
-                    <th>স্ট্যাটাস</th>
-                </tr>
-            </thead>
+            <thead><tr><th>গেমার UID</th><th>প্যাকেজ</th><th>স্ট্যাটাস</th></tr></thead>
             <tbody>
-                <tr>
-                    <td>284719472</td>
-                    <td>Free Fire Diamond</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
+                <tr><td>284719472</td><td>Free Fire Diamond</td><td><span class="status pending">Pending</span></td></tr>
             </tbody>
         </table>
     </div>
@@ -84,29 +68,21 @@
     {% elif current_page == 'orders' %}
     <div class="order-table-container">
         <h3>সব অর্ডার লিস্ট (All Orders)</h3>
-        <p>এখানে আপনার ওয়েবসাইটের সব সফল ও পেন্ডিং অর্ডারের বিস্তারিত তালিকা দেখতে পাবেন।</p>
         <table>
-            <thead>
-                <tr><th>অর্ডার আইডি</th><th>UID</th><th>প্যাকেজ</th><th>পেমেন্ট মেথড</th><th>স্ট্যাটাস</th></tr>
-            </thead>
+            <thead><tr><th>অর্ডার আইডি</th><th>UID</th><th>প্যাকেজ</th><th>স্ট্যাটাস</th></tr></thead>
             <tbody>
-                <tr><td>#1002</td><td>284719472</td><td>500 Diamonds</td><td>bKash</td><td><span class="status pending">Pending</span></td></tr>
-                <tr><td>#1001</td><td>938401923</td><td>Weekly Pass</td><td>Nagad</td><td><span class="status completed">Completed</span></td></tr>
+                <tr><td>#1002</td><td>284719472</td><td>500 Diamonds</td><td><span class="status pending">Pending</span></td></tr>
             </tbody>
         </table>
     </div>
 
     {% elif current_page == 'users' %}
     <div class="order-table-container">
-        <h3>নিবন্ধিত ইউজার লিস্ট (Registered Users)</h3>
-        <p>যারা আপনার ওয়েবসাইট থেকে টপ-আপ কিনেছে বা অ্যাকাউন্ট খুলেছে তাদের লিস্ট এখানে থাকবে।</p>
+        <h3>নিবন্ধিত ইউজার লিস্ট</h3>
         <table>
-            <thead>
-                <tr><th>ইউজার নাম</th><th>ইমেইল / মোবাইল</th><th>মোট অর্ডার</th></tr>
-            </thead>
+            <thead><tr><th>ইউজার নাম</th><th>ইমেইল / মোবাইল</th></tr></thead>
             <tbody>
-                <tr><td>Nirob Ahmed</td><td>nirob@example.com</td><td>১২ টি</td></tr>
-                <tr><td>Nahid Hasan</td><td>01712xxxxxx</td><td>২৫ টি</td></tr>
+                <tr><td>Nirob Ahmed</td><td>nirob@example.com</td></tr>
             </tbody>
         </table>
     </div>
@@ -114,12 +90,17 @@
     {% elif current_page == 'settings' %}
     <div class="order-table-container">
         <h3>পেমেন্ট মেথড সেটিংস (Payment Gateway)</h3>
-        <p>আপনার বিকাশ, রকেট বা নগদ নম্বর এবং টাকা নেওয়ার নিয়ম কানুন এখান থেকে পরিবর্তন করতে পারবেন।</p>
-        <div style="background: #1f4068; padding: 15px; border-radius: 6px; margin-top: 15px;">
-            <p><strong>বিকাশ পার্সোনাল:</strong> 017XXXXXXXX</p>
-            <p><strong>নগদ পার্সোনাল:</strong> 019XXXXXXXX</p>
-            <button style="background: #e43f5a; border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer;">নম্বর পরিবর্তন করুন</button>
-        </div>
+        <p>নিচের বক্সে আপনার নম্বর লিখে সেভ বাটনে ক্লিক করুন। এটি সরাসরি সিস্টেমে আপডেট হয়ে যাবে।</p>
+        
+        <form action="/dashboard" method="POST" style="margin-top: 20px;">
+            <label style="font-weight: bold; color: #e43f5a;">বিকাশ নম্বর (বক্স থেকে পরিবর্তন করুন):</label><br>
+            <input type="text" name="bkash_num" value="{{ data.bkash }}" required><br>
+            
+            <label style="font-weight: bold; color: #e43f5a;">নগদ নম্বর (বক্স থেকে পরিবর্তন করুন):</label><br>
+            <input type="text" name="nagad_num" value="{{ data.nagad }}" required><br>
+            
+            <button type="submit" class="save-btn">নম্বর আপডেট করুন</button>
+        </form>
     </div>
     {% endif %}
 </div>
