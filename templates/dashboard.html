@@ -34,18 +34,19 @@
 
 <div class="sidebar">
     <h2>Nahid Admin</h2>
-    <a href="#" class="active">ড্যাশবোর্ড</a>
-    <a href="#">সব অর্ডার</a>
-    <a href="#">ইউজার লিস্ট</a>
-    <a href="#">পেমেন্ট সেটিংস</a>
+    <a href="/dashboard?page=main" class="{% if current_page == 'main' %}active{% endif %}">ড্যাশবোর্ড</a>
+    <a href="/dashboard?page=orders" class="{% if current_page == 'orders' %}active{% endif %}">সব অর্ডার</a>
+    <a href="/dashboard?page=users" class="{% if current_page == 'users' %}active{% endif %}">ইউজার লিস্ট</a>
+    <a href="/dashboard?page=settings" class="{% if current_page == 'settings' %}active{% endif %}">পেমেন্ট সেটিংস</a>
 </div>
 
 <div class="main-content">
     <div class="header">
         <h3>স্বাগতম, অ্যাডমিন প্যানেল</h3>
-        <a href="/" class="logout-btn">Logout</a>
+        <a href="/logout" class="logout-btn">Logout</a>
     </div>
     
+    {% if current_page == 'main' %}
     <div class="stats-grid">
         <div class="stat-card">
             <h4>মোট অর্ডার</h4>
@@ -60,7 +61,6 @@
             <p>৳ ৪,৫০০</p>
         </div>
     </div>
-
     <div class="order-table-container">
         <h3>সাম্প্রতিক অর্ডারসমূহ</h3>
         <table>
@@ -68,26 +68,60 @@
                 <tr>
                     <th>গেমার UID</th>
                     <th>প্যাকেজ</th>
-                    <th>Transaction ID</th>
                     <th>স্ট্যাটাস</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>284719472</td>
-                    <td>Free Fire New Top-Up Event</td>
-                    <td>TXN8392102</td>
+                    <td>Free Fire Diamond</td>
                     <td><span class="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>938401923</td>
-                    <td>Free Fire Diamond Top Up</td>
-                    <td>TXN7482910</td>
-                    <td><span class="status completed">Completed</span></td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    {% elif current_page == 'orders' %}
+    <div class="order-table-container">
+        <h3>সব অর্ডার লিস্ট (All Orders)</h3>
+        <p>এখানে আপনার ওয়েবসাইটের সব সফল ও পেন্ডিং অর্ডারের বিস্তারিত তালিকা দেখতে পাবেন।</p>
+        <table>
+            <thead>
+                <tr><th>অর্ডার আইডি</th><th>UID</th><th>প্যাকেজ</th><th>পেমেন্ট মেথড</th><th>স্ট্যাটাস</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>#1002</td><td>284719472</td><td>500 Diamonds</td><td>bKash</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>#1001</td><td>938401923</td><td>Weekly Pass</td><td>Nagad</td><td><span class="status completed">Completed</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% elif current_page == 'users' %}
+    <div class="order-table-container">
+        <h3>নিবন্ধিত ইউজার লিস্ট (Registered Users)</h3>
+        <p>যারা আপনার ওয়েবসাইট থেকে টপ-আপ কিনেছে বা অ্যাকাউন্ট খুলেছে তাদের লিস্ট এখানে থাকবে।</p>
+        <table>
+            <thead>
+                <tr><th>ইউজার নাম</th><th>ইমেইল / মোবাইল</th><th>মোট অর্ডার</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Nirob Ahmed</td><td>nirob@example.com</td><td>১২ টি</td></tr>
+                <tr><td>Nahid Hasan</td><td>01712xxxxxx</td><td>২৫ টি</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% elif current_page == 'settings' %}
+    <div class="order-table-container">
+        <h3>পেমেন্ট মেথড সেটিংস (Payment Gateway)</h3>
+        <p>আপনার বিকাশ, রকেট বা নগদ নম্বর এবং টাকা নেওয়ার নিয়ম কানুন এখান থেকে পরিবর্তন করতে পারবেন।</p>
+        <div style="background: #1f4068; padding: 15px; border-radius: 6px; margin-top: 15px;">
+            <p><strong>বিকাশ পার্সোনাল:</strong> 017XXXXXXXX</p>
+            <p><strong>নগদ পার্সোনাল:</strong> 019XXXXXXXX</p>
+            <button style="background: #e43f5a; border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer;">নম্বর পরিবর্তন করুন</button>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 </body>
