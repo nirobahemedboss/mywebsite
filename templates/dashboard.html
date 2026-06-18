@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 mb-6">
+    <h3 class="text-xl font-bold text-orange-500 mb-4">নতুন প্যাকেজ যোগ করুন</h3>
+    <form method="POST" action="/admin-dashboard" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+            <label class="text-xs text-gray-400">Package Name</label>
+            <input type="text" name="package_name" required placeholder="যেমন: Free Fire 100 Diamond" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
+        </div>
+        <div>
+            <label class="text-xs text-gray-400">Price (টাকা)</label>
+            <input type="number" name="package_price" required placeholder="যেমন: 85" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
+        </div>
+        <div>
+            <label class="text-xs text-gray-400">Image URL</label>
+            <input type="text" name="package_image" placeholder="ছবির অনলাইন লিংক বসান" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
+        </div>
+        <div>
+            <label class="text-xs text-gray-400">Tag (New / Hot)</label>
+            <select name="package_tag" class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl p-2.5 focus:outline-none focus:border-orange-500 mt-1">
+                <option value="NONE">None</option>
+                <option value="New">New</option>
+                <option value="Hot">Hot</option>
+            </select>
+        </div>
+        <div class="md:col-span-4 text-right">
+            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl transition">প্যাকেজ পাবলিশ করুন</button>
+        </div>
+    </form>
+</div><!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8"><title>Admin Dashboard - NAHID TOPUP</title>
