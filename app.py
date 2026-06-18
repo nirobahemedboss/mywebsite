@@ -1,99 +1,76 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import os
 
-app = Flask("my_topup_app")
-app.secret_key = "nahid_secret_key"
+app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # সেশন সুরক্ষার জন্য যেকোনো একটি সিক্রেট কি দিন
 
-ADMIN_PASSWORD = "nahidtopupadmin"
-
-# Demo database (List)
-orders = []
-
-# Prothom-e kichhu default package rekhe dilam jate blank na thake
-packages = [
-    {
-        "id": 1,
-        "name": "Free Fire New Top-Up Event",
-        "price": 100,
-        "image_url": "https://i.ibb.co.co/placeholder1.png", # Apnar original image url boshan
-        "tag": "NEW"
-    },
-    {
-        "id": 2,
-        "name": "Free Fire Diamond Top Up BD",
-        "price": 180,
-        "image_url": "https://i.ibb.co.co/placeholder2.png",
-        "tag": "HOT"
-    }
+# ডামি ডাটাবেজ (যাতে অ্যাডমিন প্যানেল থেকে ডাটা পরিবর্তন করা যায়)
+site_contents = [
+    {"id": 1, "title": "প্রথম পোস্ট", "content": "এটি ওয়েবসাইটের প্রথম কনটেন্ট।"},
+    {"id": 2, "title": "দ্বিতীয় পোস্ট", "content": "এটি ওয়েবসাইটের দ্বিতীয় কনটেন্ট।"}
 ]
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+# অ্যাডমিন লগইন ক্রেডেনশিয়াল
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "nirob945@nt"
+
+@app.route('/')
+def home():
+    return render_template('dashboard.html', contents=site_contents)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
-        uid = request.form.get('uid')
-        payment_no = request.form.get('payment_no')
-        package = request.form.get('diamond_package')
-
-        if uid and payment_no and package:
-            orders.append({
-                "id": len(orders) + 1,
-                "uid": uid,
-                "payment_no": payment_no,
-                "package": package,
-                "status": "Pending"
-            })
-            return redirect(url_for('index'))
-
-    # index.html e packages list-o pathiye dilam
-    return render_template('index.html', orders=orders, packages=packages)
-
-@app.route('/nahid-admin', methods=['GET', 'POST'])
-def admin_login():
-    if request.method == 'POST':
+        username = request.form.get('username')
         password = request.form.get('password')
-        if password == ADMIN_PASSWORD:
-            session['admin_logged_in'] = True
-            return redirect(url_for('admin_dashboard'))
+        
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('admin_panel'))
         else:
-            return render_template('login.html', error="Bhul Password!")
-    return render_template('login.html')
+            return "ভুল ইউজারনেম বা পাসওয়ার্ড!", 401
+            
+    return '''
+        <form method="post" style="max-width:300px; margin:100px auto; font-family:sans-serif;">
+            <h2>অ্যাডমিন লগইন</h2>
+            <input type="text" name="username" placeholder="ইউজারনেম" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
+            <input type="password" name="password" placeholder="পাসওয়ার্ড" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
+            <button type="submit" style="width:100%; padding:10px; background:#007bff; color:white; border:none; cursor:pointer;">লগইন</button>
+        </form>
+    '''
 
-@app.route('/admin-dashboard', methods=['GET', 'POST'])
-def admin_dashboard():
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
+@app.route('/admin')
+def admin_panel():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    return render_template('dashboard.html', contents=site_contents, admin_mode=True)
 
-    # Jodi admin dashboard theke noutun package push kora hoy
-    if request.method == 'POST':
-        package_name = request.form.get('package_name')
-        package_price = request.form.get('package_price')
-        package_image = request.form.get('package_image')
-        package_tag = request.form.get('package_tag')
+@app.route('/admin/add', methods=['POST'])
+def add_content():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        
+    title = request.form.get('title')
+    content = request.form.get('content')
+    
+    if title and content:
+        new_id = len(site_contents) + 1
+        site_contents.append({"id": new_id, "title": title, "content": content})
+        
+    return redirect(url_for('admin_panel'))
 
-        if package_name and package_price:
-            packages.append({
-                "id": len(packages) + 1,
-                "name": package_name,
-                "price": int(package_price),
-                "image_url": package_image if package_image else "https://placehold.co/600x400",
-                "tag": package_tag
-            })
-            return redirect(url_for('admin_dashboard'))
+@app.route('/admin/delete/<int:content_id>')
+def delete_content(content_id):
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        
+    global site_contents
+    site_contents = [item for item in site_contents if item['id'] != content_id]
+    return redirect(url_for('admin_panel'))
 
-    return render_template('dashboard.html', orders=orders)
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('home'))
 
-@app.route('/admin-logout')
-def admin_logout():
-    session.pop('admin_logged_in', None)
-    return redirect(url_for('index'))
-
-# Order complete korar jonno route
-@app.route('/complete-order/<int:order_id>')
-def complete_order(order_id):
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
-    for order in orders:
-        if order['id'] == order_id:
-            order['status'] = 'Done'
-            break
-    return redirect(url_for('admin_dashboard'))
+if __name__ == '__main__':
+    app.run(debug=True)
